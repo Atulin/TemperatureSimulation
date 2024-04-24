@@ -1,4 +1,6 @@
-﻿using ScottPlot;
+﻿using System.Globalization;
+
+using ScottPlot;
 
 const int max = 1_000;
 const int reps = 10;
@@ -30,7 +32,8 @@ async Task Generate(int id)
 
     if (csv)
     {
-        await File.WriteAllTextAsync($"plot_{id}.csv", string.Join(',', points));
+        var pointStrings = points.Select(p => p.ToString(CultureInfo.InvariantCulture));
+        await File.WriteAllTextAsync($"plot_{id}.csv", string.Join(',', pointStrings));
     }
 
     if (svg)
